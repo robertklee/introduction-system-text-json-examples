@@ -44,98 +44,100 @@ namespace JsonExampleProject1
 
 		private static void RunTests()
         {
-			//// Float tests
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0}")); 
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": Infinity}")); // Throws
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": -Infinity}")); // Throws
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": NaN}")); // Throws
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""Infinity""}")); 
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-Infinity""}")); 
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""NaN""}"));
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""INF""}")); 
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-INF""}")); 
+            //// Float tests
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0}")); 
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": Infinity}"));			// Throws
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": -Infinity}"));			// Throws
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": NaN}"));				// Throws
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""Infinity""}")); 
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-Infinity""}")); 
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""NaN""}"));
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""INF""}")); 
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-INF""}")); 
 
-			//// Trailing commas
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,}")); 
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,,}")); // Throws
+            //// Trailing commas
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,}"));
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,,}"));				// Throws
 
-			//// Trailing commas in arrays
-			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,]}"));
-			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,,]}")); // Throws
+            //// Trailing commas in arrays
+            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,]}"));
+            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,,]}"));		// Throws
 
-			//// Extra commas between two tokens
-			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,, ""Int"": 10}")); // Throws
-			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10,, 15]}")); // Throws
+            //// Extra commas between two tokens
+            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,, ""Int"": 10}")); // Throws
+            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10,, 15]}"));		// Throws
 
-			//// Comments inside arrays (ALL THROWS)
-			//			Debug.WriteLine(DeserializeTestJson($@"
-			//""StringArr"": [""hi"", //comment
-			//""second line""]
-			//", JsonOptionsAllowComments));
+   //         // Comments inside arrays
+   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//	""StringArr"": [""hi"", //comment
+			//	""second line""]
+			//	}", JsonOptionsAllowComments));
 
-			//			Debug.WriteLine(DeserializeTestJson($@"
-			//""StringArr"": [""hi"",
-			////
-			//""second line""]
-			//", JsonOptionsAllowComments));
+   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//	""StringArr"": [""hi"",
+			//	//
+			//	""second line""]
+			//	}", JsonOptionsAllowComments));
 
-			//			Debug.WriteLine(DeserializeTestJson($@"
-			//""StringArr"": [""hi"", /*
-			//comment
-			//goes here */
-			//""second line""]
-			//", JsonOptionsAllowComments));
+   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//	""StringArr"": [""hi"", /*
+			//	comment
+			//	goes here */
+			//	""second line""]
+			//	}", JsonOptionsAllowComments));
 
-			//// Comments outside arrays
-			// Single-line comments
-			Debug.WriteLine(DeserializeTestJson($@"
-                /* comment */
-                ""String"": ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+   //         // Comments outside arrays
+   //         // Single-line comments
+   //         Debug.WriteLine(DeserializeTestJson(@"{
+   //             /* comment */
+   //             ""String"": ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"
-                //comment*//*hi*/
-                ""String"": ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             //comment*//*hi*/
+   //             ""String"": ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"
-                ""String"": // comment
-                ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             ""String"": // comment
+   //             ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"
-                ""String"": //
-                ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             ""String"": //
+   //             ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"
-                ""String"": ""42 is the meaning of life"" // comment
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             ""String"": ""42 is the meaning of life"" // comment
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"
-                ""String"": ""42 is the meaning of life"" //* comment */
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             ""String"": ""42 is the meaning of life"" //* comment */
+   //             }", JsonOptionsAllowComments));
 
-			// Multi-line comments
-			Debug.WriteLine(DeserializeTestJson($@"
-                /* comments
-                take up
-                multiple lines*/
-                ""String"": ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+			//// Multi-line comments
+			//Debug.WriteLine(DeserializeTestJson(@"{
+   //             /* comments
+   //             take up
+   //             multiple lines*/
+   //             ""String"": ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"""String"": /* comments
-                take up
-                multiple lines*/
-                ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+			//Debug.WriteLine(DeserializeTestJson(@"{""String"": /* comments
+   //             take up
+   //             multiple lines*/
+   //             ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
 
-			Debug.WriteLine(DeserializeTestJson($@"""String"": /*
+			//Debug.WriteLine(DeserializeTestJson(@"{""String"": /*
                 
                 
-                */
-                ""42 is the meaning of life""
-                ", JsonOptionsAllowComments));
+   //             */
+   //             ""42 is the meaning of life""
+   //             }", JsonOptionsAllowComments));
+
+
 
 		}
 
