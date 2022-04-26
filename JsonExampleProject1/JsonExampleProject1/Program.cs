@@ -44,105 +44,154 @@ namespace JsonExampleProject1
 
 		private static void RunTests()
         {
-            //// Float tests
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0}")); 
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": Infinity}"));			// Throws
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": -Infinity}"));			// Throws
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": NaN}"));				// Throws
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""Infinity""}")); 
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-Infinity""}")); 
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""NaN""}"));
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""INF""}")); 
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-INF""}")); 
+			//// Float tests
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0}")); 
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": Infinity}"));			// Throws
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": -Infinity}"));			// Throws
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": NaN}"));				// Throws
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""Infinity""}")); 
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-Infinity""}")); 
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""NaN""}"));
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""INF""}")); 
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": ""-INF""}")); 
 
-            //// Trailing commas
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,}"));
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,,}"));				// Throws
+			//// Trailing commas
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,}"));
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,,}"));				// Throws
 
-            //// Trailing commas in arrays
-            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,]}"));
-            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,,]}"));		// Throws
+			//// Trailing commas in arrays
+			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,]}"));
+			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10, 15,,]}"));		// Throws
 
-            //// Extra commas between two tokens
-            //Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,, ""Int"": 10}")); // Throws
-            //Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10,, 15]}"));		// Throws
+			//// Extra commas between two tokens
+			//Debug.WriteLine(DeserializeTestJson(@"{""Double"": 5.0,, ""Int"": 10}")); // Throws
+			//Debug.WriteLine(DeserializeTestJson(@"{""IntArr"": [5, 10,, 15]}"));		// Throws
 
-   //         // Comments inside arrays
-   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//         // Comments inside arrays
+			//         Debug.WriteLine(DeserializeTestJson(@"{
 			//	""StringArr"": [""hi"", //comment
 			//	""second line""]
 			//	}", JsonOptionsAllowComments));
 
-   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//         Debug.WriteLine(DeserializeTestJson(@"{
 			//	""StringArr"": [""hi"",
 			//	//
 			//	""second line""]
 			//	}", JsonOptionsAllowComments));
 
-   //         Debug.WriteLine(DeserializeTestJson(@"{
+			//         Debug.WriteLine(DeserializeTestJson(@"{
 			//	""StringArr"": [""hi"", /*
 			//	comment
 			//	goes here */
 			//	""second line""]
 			//	}", JsonOptionsAllowComments));
 
-   //         // Comments outside arrays
-   //         // Single-line comments
-   //         Debug.WriteLine(DeserializeTestJson(@"{
-   //             /* comment */
-   //             ""String"": ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//         // Comments outside arrays
+			//         // Single-line comments
+			//         Debug.WriteLine(DeserializeTestJson(@"{
+			//             /* comment */
+			//             ""String"": ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             //comment*//*hi*/
-   //             ""String"": ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//             //comment*//*hi*/
+			//             ""String"": ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             ""String"": // comment
-   //             ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//             ""String"": // comment
+			//             ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             ""String"": //
-   //             ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//             ""String"": //
+			//             ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             ""String"": ""42 is the meaning of life"" // comment
-   //             }", JsonOptionsAllowComments));
+			//             ""String"": ""42 is the meaning of life"" // comment
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             ""String"": ""42 is the meaning of life"" //* comment */
-   //             }", JsonOptionsAllowComments));
+			//             ""String"": ""42 is the meaning of life"" //* comment */
+			//             }", JsonOptionsAllowComments));
 
 			//// Multi-line comments
 			//Debug.WriteLine(DeserializeTestJson(@"{
-   //             /* comments
-   //             take up
-   //             multiple lines*/
-   //             ""String"": ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//             /* comments
+			//             take up
+			//             multiple lines*/
+			//             ""String"": ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{""String"": /* comments
-   //             take up
-   //             multiple lines*/
-   //             ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
+			//             take up
+			//             multiple lines*/
+			//             ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
 			//Debug.WriteLine(DeserializeTestJson(@"{""String"": /*
-                
-                
-   //             */
-   //             ""42 is the meaning of life""
-   //             }", JsonOptionsAllowComments));
 
 
+			//             */
+			//             ""42 is the meaning of life""
+			//             }", JsonOptionsAllowComments));
 
+			// existing good surrogate pair
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\udc00 DEF\"}", "ABC \ud800\udc00 DEF")); // passes
+
+			// invalid surrogates (two high back-to-back)
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF")); // FAILS STJ
+
+			// invalid surrogates (two high back-to-back)
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\u1234 DEF\"}", "ABC \ufffd\ufffd\u1234 DEF")); // FAILS STJ
+
+			// invalid surrogates (three high back-to-back)                             
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd\ufffd DEF ")); // FAILS STJ
+
+			// invalid surrogates (high followed by a good surrogate pair)              
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\udc00 DEF\"}", "ABC \ufffd\ud800\udc00 DEF ")); // FAILS STJ
+
+			// invalid high surrogate at end of string
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\"}", "ABC \ufffd")); // FAILS STJ
+
+			// high surrogate not followed by low surrogate
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 DEF\"}", "ABC \ufffd DEF ")); // FAILS STJ
+
+			// low surrogate not preceded by high surrogate
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\udc00\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF ")); // FAILS STJ
+
+			// make sure unencoded invalid surrogate characters don't make it through
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"\udc00\ud800\ud800\"}", "\ufffd\ufffd\ufffd")); // FAILS STJ
+
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\b\"}", "ABC \ufffd\b ")); // FAILS STJ
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 \"}", "ABC \ufffd ")); // FAILS STJ
+			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\b\\ud800\"}", "ABC \b\ufffd")); // FAILS STJ
 		}
 
+		private static bool DeserializeAndTest(string json, string expectedValue, JsonSerializerOptions options = default)
+        {
+            try
+            {
+                var obj = JsonSerializer.Deserialize<TestObject>(json, options);
 
-		private static bool DeserializeTestJson(string json, JsonSerializerOptions options = default)
+                return obj.String.Equals(expectedValue);
+            }
+            catch (JsonException e)
+            {
+                Debug.WriteLine(">>> JsonException: " + e.Message);
+
+                return false;
+            }
+            catch (System.ArgumentException e)
+            {
+				Debug.WriteLine(">>> ArgumentException: " + e.Message);
+
+				return false;
+			}
+        }
+
+        private static bool DeserializeTestJson(string json, JsonSerializerOptions options = default)
         {
 			if (options == default)
             {
