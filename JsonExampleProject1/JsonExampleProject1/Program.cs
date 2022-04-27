@@ -137,36 +137,59 @@ namespace JsonExampleProject1
 			//             ""42 is the meaning of life""
 			//             }", JsonOptionsAllowComments));
 
-			// existing good surrogate pair
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\udc00 DEF\"}", "ABC \ud800\udc00 DEF")); // passes
+			//// existing good surrogate pair
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\udc00 DEF\"}", "ABC \ud800\udc00 DEF")); // passes
 
-			// invalid surrogates (two high back-to-back)
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF")); // FAILS STJ
+			//// invalid surrogates (two high back-to-back)
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF")); // FAILS STJ
 
-			// invalid surrogates (two high back-to-back)
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\u1234 DEF\"}", "ABC \ufffd\ufffd\u1234 DEF")); // FAILS STJ
+			//// invalid surrogates (two high back-to-back)
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\u1234 DEF\"}", "ABC \ufffd\ufffd\u1234 DEF")); // FAILS STJ
 
-			// invalid surrogates (three high back-to-back)                             
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd\ufffd DEF ")); // FAILS STJ
+			//// invalid surrogates (three high back-to-back)                             
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\ud800 DEF\"}", "ABC \ufffd\ufffd\ufffd DEF ")); // FAILS STJ
 
-			// invalid surrogates (high followed by a good surrogate pair)              
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\udc00 DEF\"}", "ABC \ufffd\ud800\udc00 DEF ")); // FAILS STJ
+			//// invalid surrogates (high followed by a good surrogate pair)              
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\ud800\\udc00 DEF\"}", "ABC \ufffd\ud800\udc00 DEF ")); // FAILS STJ
 
-			// invalid high surrogate at end of string
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\"}", "ABC \ufffd")); // FAILS STJ
+			//// invalid high surrogate at end of string
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\"}", "ABC \ufffd")); // FAILS STJ
 
-			// high surrogate not followed by low surrogate
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 DEF\"}", "ABC \ufffd DEF ")); // FAILS STJ
+			//// high surrogate not followed by low surrogate
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 DEF\"}", "ABC \ufffd DEF ")); // FAILS STJ
 
-			// low surrogate not preceded by high surrogate
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\udc00\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF ")); // FAILS STJ
+			//// low surrogate not preceded by high surrogate
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\udc00\\ud800 DEF\"}", "ABC \ufffd\ufffd DEF ")); // FAILS STJ
 
-			// make sure unencoded invalid surrogate characters don't make it through
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"\udc00\ud800\ud800\"}", "\ufffd\ufffd\ufffd")); // FAILS STJ
+			//// make sure unencoded invalid surrogate characters don't make it through
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"\udc00\ud800\ud800\"}", "\ufffd\ufffd\ufffd")); // FAILS STJ
 
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\b\"}", "ABC \ufffd\b ")); // FAILS STJ
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 \"}", "ABC \ufffd ")); // FAILS STJ
-			Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\b\\ud800\"}", "ABC \b\ufffd")); // FAILS STJ
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800\\b\"}", "ABC \ufffd\b ")); // FAILS STJ
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\ud800 \"}", "ABC \ufffd ")); // FAILS STJ
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"ABC \\b\\ud800\"}", "ABC \b\ufffd")); // FAILS STJ
+
+			//// Test non-standard whitespace
+			//Debug.WriteLine(DeserializeTestJson("{ \x00a0\"String\": \"test\"}")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\x00a0\": \"test\"}"));
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\"\x00a0: \"test\"}")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \x00a0\"test\"}")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \"\x00a0test\"}")); 
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \"test\"\x00a0}")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \"test\"}\x00a0")); // FAILS STJ
+
+			//// Test unicode
+			//Debug.WriteLine(DeserializeAndTest("{ \"String\": \"You said science was about admitting what we don\u0092t know\" }", "You said science was about admitting what we don\u0092t know"));
+
+			//// Various whitespace and escape characters
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \0\"I know something you don't know\" }")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \a\"I know something you don't know\" }")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \b\"I know something you don't know\" }")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \f\"I know something you don't know\" }")); // FAILS STJ
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \n\"I know something you don't know\" }"));
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \r\"I know something you don't know\" }"));
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \t\"I know something you don't know\" }"));
+			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \v\"I know something you don't know\" }")); // FAILS STJ
+
 		}
 
 		private static bool DeserializeAndTest(string json, string expectedValue, JsonSerializerOptions options = default)
