@@ -32,6 +32,7 @@ namespace JsonExampleProject1
 
 		private static async Task Main()
 		{
+			RunFloatTests();
 			RunTests();
 
             //SerializeExample();
@@ -41,6 +42,23 @@ namespace JsonExampleProject1
             //SerializeWithOptions();
             //DeserizalizeWithOptions();
         }
+
+		private static void RunFloatTests()
+        {
+			var options = new JsonSerializerOptions
+			{
+				NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
+			};
+
+			Console.WriteLine(JsonSerializer.Serialize(Double.NaN, options));
+			Console.WriteLine(JsonSerializer.Serialize(Double.NegativeInfinity, options));
+			Console.WriteLine(JsonSerializer.Serialize(Double.PositiveInfinity, options));
+
+
+			Console.WriteLine(JsonSerializer.Deserialize<double>("\"NaN\"", options));
+			Console.WriteLine(JsonSerializer.Deserialize<double>("\"-Infinity\"", options));
+			Console.WriteLine(JsonSerializer.Deserialize<double>("\"Infinity\"", options));
+		}
 
 		private static void RunTests()
         {
@@ -190,28 +208,70 @@ namespace JsonExampleProject1
 			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \t\"I know something you don't know\" }"));
 			//Debug.WriteLine(DeserializeTestJson("{ \"String\": \v\"I know something you don't know\" }")); // FAILS STJ
 
+			// Long type tests
+			// Anything that's double typed fails
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0.0620                             }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": NaN                                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": Infinity                           }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": -Infinity                          }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": ""NaN""                            }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": ""Infinity""                       }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": ""-Infinity""                      }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 9223372036854775807                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1.7976931348623157E+308            }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 792281625142643375935439503.35     }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 792281625142643375935555555555555555555555555555555555555555555555555439503.35 }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1.0                                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 9.9                                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1E-06                              }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0.0                                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0.1                                }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1.000001                           }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1E-06                              }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 4.94065645841247E-324              }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 1.7976931348623157E+308            }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": -1.7976931348623157E+308           }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0e-10                              }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0.25e-5                            }")?.Long ?? -314159);
+			Debug.WriteLine(Deserialize(@"{ ""Long"": 0.3e10                             }")?.Long ?? -314159);
+		}
+
+		private static TestObject Deserialize(string json, JsonSerializerOptions options = default)
+        {
+			if (options == default)
+			{
+				options = new JsonSerializerOptions()
+				{
+					AllowTrailingCommas = true,
+					NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+				};
+			}
+
+			try
+			{
+				var obj = JsonSerializer.Deserialize<TestObject>(json, options);
+
+				return obj;
+			}
+			catch (JsonException e)
+			{
+				Debug.WriteLine(">>> JsonException: " + e.Message);
+
+				return null;
+			}
+			catch (System.ArgumentException e)
+			{
+				Debug.WriteLine(">>> ArgumentException: " + e.Message);
+
+				return null;
+			}
 		}
 
 		private static bool DeserializeAndTest(string json, string expectedValue, JsonSerializerOptions options = default)
         {
-            try
-            {
-                var obj = JsonSerializer.Deserialize<TestObject>(json, options);
+			var obj = Deserialize(json, options);
 
-                return obj.String.Equals(expectedValue);
-            }
-            catch (JsonException e)
-            {
-                Debug.WriteLine(">>> JsonException: " + e.Message);
-
-                return false;
-            }
-            catch (System.ArgumentException e)
-            {
-				Debug.WriteLine(">>> ArgumentException: " + e.Message);
-
-				return false;
-			}
+			return obj?.String?.Equals(expectedValue) ?? false;
         }
 
         private static bool DeserializeTestJson(string json, JsonSerializerOptions options = default)
